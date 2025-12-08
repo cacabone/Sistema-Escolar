@@ -11,8 +11,12 @@
   <div class="container">
     <h1>Listado de Cursos</h1>
 
+    <% if (typeof flash !== 'undefined' && flash) { %>
+      <div class="flash <%= flash.type %>"><%= flash.message %></div>
+    <% } %>
+
     <% if (user && user.rol === 'profesor') { %>
-      <p><a href="/courses/create" class="btn">+ Crear nuevo curso</a></p>
+      <p><a href="/courses/create" class="btn btn-primary">+ Crear nuevo curso</a></p>
     <% } %>
 
     <% if (cursos.length === 0) { %>
@@ -21,9 +25,21 @@
       <ul>
         <% cursos.forEach(curso => { %>
           <li>
-            <h3><%= curso.titulo %></h3>
+            <h3><a href="/courses/<%= curso._id %>"><%= curso.titulo %></a></h3>
             <p><%= curso.descripcion %></p>
             <small>Profesor: <%= curso.profesor ? curso.profesor.nombre : 'Desconocido' %></small>
+
+            <% if (typeof user !== 'undefined' && user && user.rol === 'estudiante') { %>
+              <% const isEnrolled = typeof enrolledIds !== 'undefined' && enrolledIds.includes(curso._id.toString()); %>
+              <% if (!isEnrolled) { %>
+                <form action="/enroll/<%= curso._id %>" method="POST" style="margin-top:10px; display:inline-block;">
+                  <button type="submit">Inscribirme</button>
+                </form>
+              <% } else { %>
+                <span style="margin-left:10px; font-weight:600; color:#006400">Inscrito</span>
+              <% } %>
+            <% } %>
+
             <% if (user && (user.rol === 'admin' || (curso.profesor && curso.profesor._id && curso.profesor._id.toString() === user._id))) { %>
               |
               <a href="/courses/<%= curso._id %>/edit">Editar</a>

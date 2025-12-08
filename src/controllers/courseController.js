@@ -1,4 +1,5 @@
 import Course from "../models/Course.js";
+import Enrollment from "../models/Enrollment.js";
 
 // Mostrar formulario para crear curso
 export const showCreateCourse = (req, res) => {
@@ -40,7 +41,19 @@ export const listCourses = async (req, res) => {
     }
 
     const cursos = await Course.find(query).populate("profesor", "nombre correo");
-    res.render("courses/list", { user, cursos });
+
+    // Prepare flash message if set in session (simple flash)
+    const flash = req.session.flash;
+    if (req.session.flash) delete req.session.flash;
+
+    // If student, collect enrolled course ids to disable enroll button
+    let enrolledIds = [];
+    if (user.rol === "estudiante") {
+      const inscripciones = await Enrollment.find({ estudiante: user._id }).select("curso").lean();
+      enrolledIds = inscripciones.map(i => i.curso.toString());
+    }
+
+    res.render("courses/list", { user, cursos, enrolledIds, flash });
   } catch (err) {
     console.error(err);
     res.send("Error al cargar los cursos");
@@ -115,5 +128,34 @@ export const deleteCourse = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.send("Error al eliminar el curso");
+  }
+};
+
+// Ver detalles de un curso (incluye lista de inscritos si el profesor es el dueño)
+export const showCourseDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const curso = await Course.findById(id).populate("profesor", "nombre correo");
+    if (!curso) return res.status(404).send("Curso no encontrado");
+
+    const user = req.session.user;
+    let inscriptos = [];
+
+    // Si es profesor y dueño del curso, obtener los estudiantes inscritos
+    if (user && user.rol === "profesor" && curso.profesor && curso.profesor._id.toString() === user._id) {
+      const enrolls = await Enrollment.find({ curso: id }).populate("estudiante", "nombre correo fechaInscripcion");
+      inscriptos = enrolls.map(e => ({ estudiante: e.estudiante, fecha: e.fechaInscripcion }));
+    }
+
+    // Admins may also see the enrolled students
+    if (user && user.rol === "admin") {
+      const enrolls = await Enrollment.find({ curso: id }).populate("estudiante", "nombre correo");
+      inscriptos = enrolls.map(e => ({ estudiante: e.estudiante, fecha: e.fechaInscripcion }));
+    }
+
+    res.render("courses/details", { user, curso, inscriptos });
+  } catch (err) {
+    console.error(err);
+    res.send("Error al cargar los detalles del curso");
   }
 };
