@@ -6,6 +6,7 @@ export const showCreateCourse = (req, res) => {
     return res.status(403).send("Acceso denegado: solo profesores pueden crear cursos");
   }
   res.render("courses/create", { user: req.session.user });
+};
 
 // Crear un nuevo curso
 export const createCourse = async (req, res) => {
