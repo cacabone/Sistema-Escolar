@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Curso</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <div class="container">
+    <h1>Crear Nuevo Curso</h1>
+
+    <form action="/courses/create" method="POST">
+      <label for="titulo">Título del curso:</label>
+      <input type="text" id="titulo" name="titulo" required>
+
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+
+      <button type="submit">Guardar curso</button>
+    </form>
+
+    <p><a href="/courses">← Volver a la lista de cursos</a></p>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

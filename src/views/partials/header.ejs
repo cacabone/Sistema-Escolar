@@ -1,4 +1,19 @@
 <header>
   <h2>Sistema de Gestión Escolar</h2>
+  <nav>
+    <a href="/">Inicio</a> 
+    <% if (typeof user !== 'undefined' && user) { %>
+      | <a href="/courses">Cursos</a>
+    <% } %>
+    <% if (typeof user !== 'undefined' && user && user.rol === 'profesor') { %>
+      | <a href="/courses/create">Crear curso</a>
+    <% } %>
+    <% if (typeof user !== 'undefined' && user) { %>
+      | <a href="/logout">Cerrar sesión</a>
+    <% } else { %>
+      | <a href="/login">Iniciar sesión</a> |
+      <a href="/register">Registrarse</a>
+    <% } %>
+  </nav>
   <hr>
 </header>
