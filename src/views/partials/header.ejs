@@ -1,18 +1,25 @@
 <header>
   <h2>Sistema de Gestión Escolar</h2>
   <nav>
-    <a href="/">Inicio</a> 
+    <a href="/" class="btn btn-primary">Inicio</a>
     <% if (typeof user !== 'undefined' && user) { %>
-      | <a href="/courses">Cursos</a>
+      |
+      <a href="/courses" class="btn btn-primary">Cursos</a>
     <% } %>
     <% if (typeof user !== 'undefined' && user && user.rol === 'profesor') { %>
-      | <a href="/courses/create">Crear curso</a>
+      |
+      <a href="/courses/create" class="btn btn-primary">Crear curso</a>
+      |
+      <a href="/enrollments" class="btn btn-primary">Inscripciones</a>
     <% } %>
     <% if (typeof user !== 'undefined' && user) { %>
-      | <a href="/logout">Cerrar sesión</a>
+      |
+      <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
     <% } else { %>
-      | <a href="/login">Iniciar sesión</a> |
-      <a href="/register">Registrarse</a>
+      |
+      <a href="/login" class="btn btn-primary">Iniciar sesión</a>
+      |
+      <a href="/register" class="btn btn-success">Registrarse</a>
     <% } %>
   </nav>
   <hr>
