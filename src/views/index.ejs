@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema Escolar</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('./partials/header') %>
+
+  <div class="container">
+    <% if (user) { %>
+      <h1>Bienvenido, <%= user.nombre %> 👋</h1>
+      <p>Rol: <strong><%= user.rol %></strong></p>
+
+      <nav>
+        <% if (user.rol === 'profesor') { %>
+          <a href="/courses/create">Crear curso</a> |
+          <a href="/courses">Ver mis cursos</a>
+        <% } else if (user.rol === 'estudiante') { %>
+          <a href="/courses">Ver cursos disponibles</a>
+        <% } else if (user.rol === 'admin') { %>
+          <a href="/admin">Panel de Administración</a>
+        <% } %>
+        <a href="/logout">Cerrar sesión</a>
+      </nav>
+    <% } else { %>
+      <h1>Bienvenido al Sistema Escolar</h1>
+      <p><a href="/login">Inicia sesión</a> o <a href="/register">crea una cuenta</a> para comenzar.</p>
+    <% } %>
+  </div>
+
+  <%- include('./partials/footer') %>
+</body>
+</html>

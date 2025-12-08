@@ -1,0 +1,112 @@
+/* ========== ESTILOS GENERALES ========== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header, footer {
+  text-align: center;
+  background: #004aad;
+  color: white;
+  padding: 10px 0;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9em;
+}
+
+.container {
+  width: 90%;
+  max-width: 450px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+  padding: 25px;
+}
+
+/* ========== TÍTULOS ========== */
+h1 {
+  text-align: center;
+  color: #004aad;
+}
+
+/* ========== FORMULARIOS ========== */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+input, select {
+  padding: 10px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+input:focus, select:focus {
+  border: 1px solid #004aad;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background: #004aad;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0061d5;
+}
+
+/* ========== LINKS Y TEXTO ========== */
+a {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ========== NAV (en index.ejs) ========== */
+nav {
+  text-align: center;
+  margin-top: 20px;
+}
+
+nav a {
+  margin: 0 10px;
+  background: #eaf1ff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #004aad;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  background: #004aad;
+  color: white;
+}
