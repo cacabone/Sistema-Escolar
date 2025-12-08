@@ -36,6 +36,7 @@ mongoose
 import authRoutes from "./src/routes/authRoutes.js";
 import courseRoutes from "./src/routes/courseRoutes.js";
 import adminRoutes from "./src/routes/adminRoutes.js";
+import enrollmentRoutes from "./src/routes/enrollmentRoutes.js";
 
 app.get("/", (req, res) => {
   res.render("index", { user: req.session.user });
@@ -44,6 +45,7 @@ app.get("/", (req, res) => {
 app.use("/", authRoutes);
 app.use("/courses", courseRoutes);
 app.use("/admin", adminRoutes);
+app.use("/", enrollmentRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>

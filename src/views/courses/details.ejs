@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalles del Curso</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <div class="container">
+    <h1><%= curso.titulo %></h1>
+    <p><%= curso.descripcion %></p>
+    <p><strong>Profesor:</strong> <%= curso.profesor ? curso.profesor.nombre : 'Desconocido' %> (<%= curso.profesor ? curso.profesor.correo : '' %>)</p>
+
+    <% if (inscriptos && inscriptos.length > 0) { %>
+      <h3>Estudiantes inscritos</h3>
+      <ul>
+        <% inscriptos.forEach(item => { %>
+          <li>
+            <strong><%= item.estudiante.nombre %></strong> — <%= item.estudiante.correo %>
+            <% if (item.fecha) { %>
+              <small> — Inscrito el <%= new Date(item.fecha).toLocaleString() %></small>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No hay estudiantes inscritos (o no tienes permiso para verlos).</p>
+    <% } %>
+
+    <p><a href="/courses">← Volver a la lista de cursos</a></p>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

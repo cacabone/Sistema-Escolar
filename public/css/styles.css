@@ -110,3 +110,82 @@ nav a:hover {
   background: #004aad;
   color: white;
 }
+
+/* Button utility classes (anchors and buttons) */
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: #004aad;
+  color: white;
+  border-color: #004aad;
+}
+.btn-primary:hover {
+  background: #0061d5;
+}
+.btn-success {
+  background: #2e8b57;
+  color: white;
+  border-color: #2e8b57;
+}
+.btn-success:hover {
+  background: #3fb26f;
+}
+.btn-danger {
+  background: #cc3b3b;
+  color: white;
+  border-color: #cc3b3b;
+}
+.btn-danger:hover {
+  background: #e05b5b;
+}
+.btn-ghost {
+  background: transparent;
+  color: #004aad;
+  border-color: transparent;
+}
+.btn-ghost:hover {
+  background: rgba(0,74,173,0.08);
+}
+
+/* Ensure ghost buttons are visible on the dark header */
+header .btn-ghost,
+header nav a.btn-ghost {
+  color: white;
+  border-color: rgba(255,255,255,0.12);
+}
+header .btn-ghost:hover,
+header nav a.btn-ghost:hover {
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+/* Flash messages */
+.flash {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 12px 0;
+  text-align: center;
+  font-weight: 600;
+}
+.flash.success {
+  background: #e6ffed;
+  color: #0b6a2f;
+  border: 1px solid rgba(46,184,92,0.2);
+}
+.flash.error {
+  background: #ffecec;
+  color: #a30000;
+  border: 1px solid rgba(255,107,107,0.2);
+}

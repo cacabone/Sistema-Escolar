@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscripciones</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <div class="container">
+    <h1>Inscripciones en mis cursos</h1>
+
+    <% if (!inscripciones || inscripciones.length === 0) { %>
+      <p>No hay inscripciones para tus cursos.</p>
+    <% } else { %>
+      <ul>
+        <% inscripciones.forEach(i => { %>
+          <li>
+            <strong><%= i.estudiante.nombre %></strong> (<%= i.estudiante.correo %>)
+            — Curso: <%= i.curso ? i.curso.titulo : 'Desconocido' %>
+            <% if (i.fechaInscripcion) { %>
+              <small> — <%= new Date(i.fechaInscripcion).toLocaleString() %></small>
+            <% } %>
+          </li>
+          <hr>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <p><a href="/">← Volver</a></p>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>
