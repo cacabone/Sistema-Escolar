@@ -10,6 +10,9 @@
 
   <div class="container">
     <h1>Crear cuenta</h1>
+    <% if (typeof flash !== 'undefined' && flash) { %>
+      <div class="flash <%= flash.type %>"><%= flash.message %></div>
+    <% } %>
     <form action="/register" method="POST">
       <label for="nombre">Nombre completo:</label>
       <input type="text" id="nombre" name="nombre" required>
@@ -19,6 +22,9 @@
 
       <label for="contraseña">Contraseña:</label>
       <input type="password" id="contraseña" name="contraseña" required>
+
+      <label for="contraseñaConfirm">Confirmar contraseña:</label>
+      <input type="password" id="contraseñaConfirm" name="contraseñaConfirm" required>
 
       <label for="rol">Rol:</label>
       <select id="rol" name="rol" required>
