@@ -90,5 +90,5 @@ npm run dev
 **Licencia**
 - Ver `LICENSE` en el repositorio.
 
-Si quieres, puedo agregar instrucciones de despliegue (Heroku, Docker, Vercel) o un script de seed para crear un usuario admin inicial. Gracias por dejarme finalizar este proyecto contigo.
+
 
