@@ -26,11 +26,13 @@ app.set("view engine", "ejs");
 app.set("views", path.join(process.cwd(), "src/views"));
 app.use(express.static("public"));
 
-// Conexión a MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Conectado a MongoDB"))
-  .catch((err) => console.error("❌ Error en conexión:", err));
+// Conexión a MongoDB (solo al ejecutar la app, no durante tests)
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("✅ Conectado a MongoDB"))
+    .catch((err) => console.error("❌ Error en conexión:", err));
+}
 
 // Rutas
 import authRoutes from "./src/routes/authRoutes.js";
@@ -49,9 +51,14 @@ app.use("/", enrollmentRoutes);
 app.use("/", adminRoutes);
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () =>
-  console.log(
-    `🚀 Servidor escuchando en http://localhost:${PORT} (env: ${process.env.NODE_ENV || "development"})`
-  )
-);
+// Start server only when not running tests
+if (process.env.NODE_ENV !== "test") {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () =>
+    console.log(
+      `🚀 Servidor escuchando en http://localhost:${PORT} (env: ${process.env.NODE_ENV || "development"})`
+    )
+  );
+}
+
+export default app;
