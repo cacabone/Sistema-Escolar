@@ -9,13 +9,20 @@ export const showAdminPanel = async (req, res) => {
       return res.status(403).send("Acceso denegado: solo administradores pueden acceder.");
     }
 
-    const usuarios = await User.find().select("nombre correo rol");
+    // Order users by role (asc) then by name so admins appear first
+    const usuarios = await User.find()
+      .select("nombre correo rol")
+      .sort({ rol: 1, nombre: 1 });
     const cursos = await Course.find().populate("profesor", "nombre");
+    const flash = req.session.flash;
+    // clear flash so it doesn't persist beyond one render
+    req.session.flash = null;
 
     res.render("admin/panel", {
       user: req.session.user,
       usuarios,
       cursos,
+      flash,
     });
   } catch (err) {
     console.error(err);
