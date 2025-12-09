@@ -9,6 +9,9 @@
   <%- include('../partials/header') %>
 
   <div class="container admin-container">
+    <% if (typeof flash !== 'undefined' && flash) { %>
+      <div class="flash <%= flash.type %>" style="margin-bottom:16px;"><%= flash.message %></div>
+    <% } %>
     <div class="admin-panel">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <div>
@@ -42,7 +45,7 @@
                     <td><%= u.correo %></td>
                     <td><%= u.rol %></td>
                     <td class="admin-actions">
-                      <% if (u.rol !== 'admin' || (user && u._id.toString() === user._id)) { %>
+                      <% if (u.rol !== 'admin' || (user && String(u._id) === String(user._id))) { %>
                         <a href="/admin/user/<%= u._id %>/edit" class="btn btn-primary">Editar</a>
                       <% } %>
                       <% if (u.rol !== 'admin') { %>
