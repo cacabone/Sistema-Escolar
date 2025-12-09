@@ -2,7 +2,7 @@
   <h2>Sistema de Gestión Escolar</h2>
   <nav>
     <a href="/" class="btn btn-primary">Inicio</a>
-    <% if (typeof user !== 'undefined' && user) { %>
+    <% if (typeof user !== 'undefined' && user && user.rol !== 'admin') { %>
       |
       <a href="/courses" class="btn btn-primary">Cursos</a>
     <% } %>
@@ -11,6 +11,10 @@
       <a href="/courses/create" class="btn btn-primary">Crear curso</a>
       |
       <a href="/enrollments" class="btn btn-primary">Inscripciones</a>
+    <% } %>
+    <% if (typeof user !== 'undefined' && user && user.rol === 'admin') { %>
+      |
+      <a href="/admin" class="btn btn-primary">Panel de Administración</a>
     <% } %>
     <% if (typeof user !== 'undefined' && user) { %>
       |
