@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <div class="container admin-container">
+    <div class="admin-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h1 style="margin:0">Panel de Administración</h1>
+          <p style="margin:6px 0 0 0; color:#666">Bienvenido, <strong><%= user.nombre %></strong> (<%= user.rol %>)</p>
+        </div>
+        <div>
+          <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
+        </div>
+      </div>
+
+      <div class="panel-grid" style="margin-top:20px;">
+        <section class="panel-section">
+          <h2 style="margin-top:0">Usuarios Registrados</h2>
+          <% if (usuarios.length === 0) { %>
+            <p class="admin-empty">No hay usuarios registrados.</p>
+          <% } else { %>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Rol</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% usuarios.forEach(u => { %>
+                  <tr>
+                    <td><%= u.nombre %></td>
+                    <td><%= u.correo %></td>
+                    <td><%= u.rol %></td>
+                    <td class="admin-actions">
+                      <% if (u.rol !== 'admin' || (user && u._id.toString() === user._id)) { %>
+                        <a href="/admin/user/<%= u._id %>/edit" class="btn btn-primary">Editar</a>
+                      <% } %>
+                      <% if (u.rol !== 'admin') { %>
+                        <form action="/admin/delete-user/<%= u._id %>" method="POST" style="display:inline;margin-left:8px;">
+                          <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                      <% } %>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          <% } %>
+        </section>
+
+        <section class="panel-section">
+          <h2 style="margin-top:0">Cursos Registrados</h2>
+          <% if (cursos.length === 0) { %>
+            <p class="admin-empty">No hay cursos registrados.</p>
+          <% } else { %>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Descripción</th>
+                  <th>Profesor</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% cursos.forEach(c => { %>
+                  <tr>
+                    <td><%= c.titulo %></td>
+                    <td><%= c.descripcion %></td>
+                    <td><%= c.profesor ? c.profesor.nombre : 'Desconocido' %></td>
+                    <td class="admin-actions">
+                      <a href="/courses/<%= c._id %>/edit" class="btn btn-primary">Editar</a>
+                      <form action="/admin/delete-course/<%= c._id %>" method="POST" style="display:inline;margin-left:8px;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          <% } %>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>
