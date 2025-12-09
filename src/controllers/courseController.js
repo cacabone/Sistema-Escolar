@@ -123,6 +123,8 @@ export const deleteCourse = async (req, res) => {
       return res.status(403).send("Acceso denegado: no puedes eliminar este curso");
     }
 
+    // delete related enrollments first to keep DB consistent
+    await Enrollment.deleteMany({ curso: id });
     await Course.deleteOne({ _id: id });
     res.redirect("/courses");
   } catch (err) {
