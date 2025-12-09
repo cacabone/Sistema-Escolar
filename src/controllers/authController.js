@@ -66,7 +66,8 @@ export const loginUser = async (req, res) => {
     }
 
     req.session.user = user;
-    res.redirect("/");
+    // redirect to courses list after successful login (matches tests)
+    res.redirect("/courses");
   } catch (err) {
     console.error("Error en login:", err);
     req.session.flash = { type: "error", message: "Error en login" };

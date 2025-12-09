@@ -90,5 +90,5 @@ npm run dev
 **Licencia**
 - Ver `LICENSE` en el repositorio.
 
-
-
+**NOTA PARA PRUEBAS AUTOMATIZADAS**
+- Ejecutar en el PowerShell: `$env:NODE_ENV='test'; $env:NODE_OPTIONS='--experimental-vm-modules'; npm test`
